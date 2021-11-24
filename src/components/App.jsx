@@ -5,27 +5,21 @@ import Note from "./Note";
 import CreateArea from "./CreateArea";
 
 function App() {
-  const [note, setNote] = useState([{
-    title: "",
-    content: ""
-  }]);
+  const [notes, setNotes] = useState([]);
 
-  const newNote = (title, content) => {
-    setNote(()=>{
-      return {
-        ...note,
-        title,
-        content,
-      }
-    })
-    console.log(note);
+  function newNote(newNote){
+    setNotes(prevNotes => {
+      return [...prevNotes, newNote];
+    });
   }
 
   return (
     <div>
       <Header />
       <CreateArea newNote={newNote} />
-      <Note key={1} title="Note title" content="Note content" />
+      {notes.map((note, i) => (
+        <Note key={i} title={note.title} content={note.content} />
+      ))}
       <Footer />
     </div>
   );
